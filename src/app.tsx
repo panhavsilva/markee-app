@@ -1,13 +1,7 @@
-import styled from 'styled-components/macro'
-
 function App () {
   return (
-    <Title>App</Title>
+    <h1>App</h1>
   )
 }
-
-const Title = styled.h1`
-  color: ${({ theme }) => theme.colors.primary}
-`
 
 export { App }
