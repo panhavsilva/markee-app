@@ -1,10 +1,12 @@
 import styled, { css } from 'styled-components/macro'
+import { Input } from './input'
+import { Output } from './output'
 
 function Content () {
   return (
     <Main>
-      <div>div1</div>
-      <div>div2</div>
+      <Input />
+      <Output />
     </Main>
   )
 }
