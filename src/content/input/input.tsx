@@ -10,12 +10,12 @@ function Input () {
         <FileName
           type='text'
           name='fileName'
-          value='Sem título'
+          placeholder='Sem título'
           autoFocus
         />
       </File>
       <Textarea
-        value='## Bootcamp Brain Co.'
+        placeholder='## Bootcamp Brain Co.'
       />
     </div>
   )
