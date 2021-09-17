@@ -1,12 +1,12 @@
-import { Textarea } from './textarea'
-import { File, FileName } from './file'
-import file from 'assets/file-blue-icon.svg'
+import { Textarea } from './textarea-styled'
+import { File, FileName } from './file-styled'
+import fileBlueIcon from 'assets/file-blue-icon.svg'
 
 function Input () {
   return (
     <div>
       <File>
-        <img src={file} alt='icon' />
+        <img src={fileBlueIcon} alt='icon' />
         <FileName
           type='text'
           name='fileName'

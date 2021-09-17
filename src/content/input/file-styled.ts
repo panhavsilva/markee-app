@@ -7,10 +7,12 @@ export const File = styled.div`
 export const FileName = styled.input`
   background: ${({ theme }) => theme.colors.white};
   border: none;
+  color: ${({ theme }) => theme.colors.black};
   cursor: text;
-  font-family: 'DM Sans', sans-serif;
   font-size: 1.8rem;
+  font-weight: 500;
   letter-spacing: -0.02em;
+  line-height: 23px;
   margin-left: 6px;
   width: 100%;
   :focus {
