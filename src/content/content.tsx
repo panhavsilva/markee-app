@@ -1,12 +1,13 @@
+import { FileList } from 'types/types'
 import styled, { css } from 'styled-components/macro'
 import { Input } from './input'
 import { Output } from './output'
 
-function Content () {
+function Content ({ fileList }: FileList) {
   return (
     <Main>
       <Input />
-      <Output />
+      <Output content={fileList[0].content} />
     </Main>
   )
 }

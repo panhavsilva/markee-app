@@ -1,3 +1,4 @@
+import { FileActiveProps } from 'types/types'
 import {
   FileIcon, FileTitle, EditingIcon, SalvedIcon, SalvingIcon,
 } from './file-styled'
@@ -6,15 +7,6 @@ import editingIcon from 'assets/editing-icon.svg'
 import savingIcon from 'assets/saving-icon.svg'
 import savedIcon from 'assets/saved-icon.svg'
 
-type FileActiveProps = {
-  file: {
-    id?: number
-    name: string
-    content?: string
-    active?: boolean
-    status: 'editing' | 'saving' | 'salved'
-  }
-}
 function FileActive ({ file }: FileActiveProps) {
   return (
     <>

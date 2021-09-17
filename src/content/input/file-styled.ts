@@ -1,13 +1,13 @@
-import styled from 'styled-components/macro'
+import styled, { css } from 'styled-components/macro'
 
 export const File = styled.div`
   display: flex;
-  margin: 24px 0px 24px 24px;
+  margin: 20px 0px 20px 20px;
 `
-export const FileName = styled.input`
-  background: ${({ theme }) => theme.colors.white};
+export const FileName = styled.input`${({ theme }) => css`
+  background: ${theme.colors.white};
   border: none;
-  color: ${({ theme }) => theme.colors.black};
+  color: ${theme.colors.black};
   cursor: text;
   font-size: 1.8rem;
   font-weight: 500;
@@ -18,4 +18,4 @@ export const FileName = styled.input`
   :focus {
     outline: none;
   }
-`
+`}`

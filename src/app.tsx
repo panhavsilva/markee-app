@@ -8,7 +8,15 @@ function App () {
     {
       id: 1,
       name: 'Readme.md',
-      content: '# Text 1',
+      content: `
+        <h1> Text h1</h1>
+        ## Text h2 <br />
+        ### Text h3 <br />
+        #### Text h4 <br />
+        ##### Text h5 <br />
+        ###### Text h6 <br />
+        Lorem ipsum dolor sit amet simet
+      `,
       active: true,
       status: 'editing',
     },
@@ -38,7 +46,7 @@ function App () {
   return (
     <Container>
       <Sidebar fileList={fileList} />
-      <Content />
+      <Content fileList={fileList} />
     </Container>
   )
 }
