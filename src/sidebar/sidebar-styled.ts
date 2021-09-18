@@ -39,6 +39,11 @@ export const ButtonAddFile = styled.button`${({ theme }) => css`
   line-height: 18px;
   margin-top: 35px;
   width: 100%;
+
+  :hover{
+    background-color: ${theme.colors.primaryDark};
+    border: 1px solid ${theme.colors.primaryDark};
+  }
 `}`
 
 export const PlusIcon = styled.img`
@@ -53,29 +58,30 @@ export const List = styled.ul`${({ theme }) => css`
   width: 100%;
 `}`
 
-export const File = styled.li`${({ theme }) => css`
+export const Files = styled.li`${({ theme }) => css`
   align-items: center;
   align-content: center;
   background: ${theme.colors.lightBlack};
   border: none;
   border-radius: 6px;
-  color: rgba(255, 255, 255, 0.65);
-  display: grid;
+  display: flex;
   font-size: 1.6rem;
   height: 37px;
-  grid-template-columns: 25px 1fr 13px;
   margin-bottom: 6px;
   list-style: none;
   padding: 0px 10px;
   width: 100%;
 `}`
 
-export const FileHover = styled(File)`${({ theme }) => css`
+export const FileHover = styled(Files)`${({ theme }) => css`
   background: ${theme.colors.black};
 
     :hover{
       background: ${({ theme }) => theme.colors.lightBlack};
-      color: #FFF;
+
+      a {
+        color: #FFF;
+      }
 
       button{
         opacity: 1;
