@@ -1,9 +1,17 @@
 import styled, { css } from 'styled-components/macro'
 
-export const File = styled.div`
+export const Input = styled.div`
+  align-items: center;
   display: flex;
-  margin: 20px 0px 20px 20px;
+  grid-area: head;
+  height: 100%;
+  padding-left: 28px;
 `
+export const FileNameIcon = styled.img`
+  height: 24px;
+  width: 24px;
+`
+
 export const FileName = styled.input`${({ theme }) => css`
   background: ${theme.colors.white};
   border: none;

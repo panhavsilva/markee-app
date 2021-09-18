@@ -1,6 +1,14 @@
 import styled, { css } from 'styled-components/macro'
 
-export const Textarea = styled.textarea`${({ theme }) => css`
+function Textarea () {
+  return (
+    <TextareaStyled
+      placeholder='Digite aqui seu markdown'
+    />
+  )
+}
+
+export const TextareaStyled = styled.textarea`${({ theme }) => css`
   background: ${theme.colors.white};
   border: none;
   border-right: 2px solid rgba(30, 41, 59, 0.12);
@@ -10,6 +18,7 @@ export const Textarea = styled.textarea`${({ theme }) => css`
   font-family: 'Inconsolata', monospace;
   font-size: 1.8rem;
   font-weight: 500;
+  grid-area: textarea;
   height: 80vh;
   line-height: 19px;
   padding: 0px 30px;
@@ -20,3 +29,5 @@ export const Textarea = styled.textarea`${({ theme }) => css`
     outline: none;
   }
 `}`
+
+export { Textarea }

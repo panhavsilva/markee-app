@@ -3,10 +3,10 @@ import deleteIcon from 'ui/icons/delete-icon.svg'
 import { FileLink, FileIcon } from './file-styled'
 import fileWhiteIcon from 'ui/icons/file-white-icon.svg'
 
-type FileInativeProps = { file: { id?: number, name: string } }
+type FileInativeProps = { file: { id: number, name: string } }
 function FileInative ({ file }: FileInativeProps) {
   return (
-    <FileLink href={'/' + file.name}>
+    <FileLink href={`/file/${file.id}`}>
       <FileIcon src={fileWhiteIcon} alt='File icon' />
       {file.name}
       <ButtonDelete />

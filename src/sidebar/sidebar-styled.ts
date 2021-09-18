@@ -39,6 +39,11 @@ export const ButtonAddFile = styled.button`${({ theme }) => css`
   line-height: 18px;
   margin-top: 35px;
   width: 100%;
+
+  :hover{
+    background-color: ${theme.colors.primaryDark};
+    border: 1px solid ${theme.colors.primaryDark};
+  }
 `}`
 
 export const PlusIcon = styled.img`
