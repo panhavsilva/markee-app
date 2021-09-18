@@ -3,7 +3,7 @@ import fileBlueIcon from 'ui/icons/file-blue-icon.svg'
 import { FileIcon, FileLinkActive } from './file-styled'
 import { StatusIconEditing } from './status-icon'
 
-type FileActiveProps = { file: { id: number, name: string, status: Status } }
+type FileActiveProps = { file: { id: string, name: string, status: Status } }
 function FileActive ({ file }: FileActiveProps) {
   return (
     <FileLinkActive href={`/file/${file.id}`}>

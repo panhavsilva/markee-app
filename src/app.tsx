@@ -1,3 +1,5 @@
+import { v4 } from 'uuid'
+import { useState } from 'react'
 import styled from 'styled-components/macro'
 import { File } from 'resources/files/types'
 import { Sidebar } from 'sidebar'
@@ -7,7 +9,7 @@ type FileArray = File[]
 function App () {
   const fileList: FileArray = [
     {
-      id: 1,
+      id: v4(),
       name: 'Readme.md',
       content: `
         <h1> Text h1</h1>
@@ -18,25 +20,25 @@ function App () {
         ###### Text h6 <br />
         Lorem ipsum dolor sit amet simet
       `,
-      active: true,
+      active: false,
       status: 'editing',
     },
     {
-      id: 2,
+      id: v4(),
       name: 'Contributing.md',
       content: '## Text 2',
-      active: true,
+      active: false,
       status: 'saving',
     },
     {
-      id: 3,
+      id: v4(),
       name: 'License.md',
       content: '### Text 3',
-      active: true,
+      active: false,
       status: 'saved',
     },
     {
-      id: 4,
+      id: v4(),
       name: 'Links.md',
       content: '#### Text 4',
       active: false,
@@ -44,9 +46,15 @@ function App () {
     },
   ]
 
+  const [files, setFile] = useState(fileList)
+
+  const addFile = (file: FileArray) => {
+    return setFile(f => f.concat(file))
+  }
+
   return (
     <Container>
-      <Sidebar fileList={fileList} />
+      <Sidebar fileList={files} setFile={addFile} />
       <Content />
     </Container>
   )

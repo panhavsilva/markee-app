@@ -1,3 +1,5 @@
+import { v4 } from 'uuid'
+import { Dispatch } from 'react'
 import { File } from 'resources/files/types'
 import plus from 'ui/icons/plus-symbol.svg'
 import logo from './logo.svg'
@@ -7,13 +9,26 @@ import {
   Aside, Logo, Title, ButtonAddFile, PlusIcon, List, Files, FileHover,
 } from './sidebar-styled'
 
-type FileList = { fileList: File[] }
-function Sidebar ({ fileList }: FileList) {
+type FileArray = File[]
+type SidebarProps = { fileList: File[], setFile: Dispatch<FileArray> }
+export function Sidebar ({ fileList, setFile }: SidebarProps) {
+  const handleClick = () => {
+    const newFile: FileArray = [{
+      id: v4(),
+      name: 'Sem título',
+      content: '',
+      active: true,
+      status: 'saved',
+    }]
+
+    return setFile(newFile)
+  }
+
   return (
     <Aside>
       <Logo><img src={logo} alt='Logo' /></Logo>
       <Title>Arquivos</Title>
-      <ButtonAddFile>
+      <ButtonAddFile onClick={handleClick}>
         <PlusIcon src={plus} alt='Plus icon' />{' '}Adicionar arquivo
       </ButtonAddFile>
       <List>
@@ -26,5 +41,3 @@ function Sidebar ({ fileList }: FileList) {
     </Aside>
   )
 }
-
-export { Sidebar }
