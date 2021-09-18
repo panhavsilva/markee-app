@@ -53,7 +53,7 @@ export const List = styled.ul`${({ theme }) => css`
   width: 100%;
 `}`
 
-export const File = styled.li`${({ theme }) => css`
+export const Files = styled.li`${({ theme }) => css`
   align-items: center;
   align-content: center;
   background: ${theme.colors.lightBlack};
@@ -68,7 +68,7 @@ export const File = styled.li`${({ theme }) => css`
   width: 100%;
 `}`
 
-export const FileHover = styled(File)`${({ theme }) => css`
+export const FileHover = styled(Files)`${({ theme }) => css`
   background: ${theme.colors.black};
 
     :hover{

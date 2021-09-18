@@ -1,6 +1,6 @@
+import fileBlueIcon from 'ui/icons/file-blue-icon.svg'
 import { Textarea } from './textarea-styled'
 import { File, FileName } from './file-styled'
-import fileBlueIcon from 'assets/file-blue-icon.svg'
 
 function Input () {
   return (

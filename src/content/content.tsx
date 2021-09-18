@@ -1,8 +1,9 @@
-import { FileList } from 'types/types'
 import styled, { css } from 'styled-components/macro'
+import { File } from 'resources/files/types'
 import { Input } from './input'
 import { Output } from './output'
 
+type FileList = { fileList: File[] }
 function Content ({ fileList }: FileList) {
   return (
     <Main>

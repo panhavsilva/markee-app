@@ -3,7 +3,7 @@ import { App } from './app'
 import { theme } from 'resources/theme'
 import 'normalize.css'
 
-function Root () {
+export function Root () {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -26,5 +26,3 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400;
   }
 `
-
-export { Root }

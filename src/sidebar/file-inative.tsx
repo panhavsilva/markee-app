@@ -1,7 +1,9 @@
-import { FileInativeProps } from 'types/types'
-import { FileLink, FileIcon, ButtonDelete } from './file-styled'
-import fileWhiteIcon from 'assets/file-white-icon.svg'
+import styled, { css } from 'styled-components/macro'
+import deleteIcon from 'ui/icons/delete-icon.svg'
+import { FileLink, FileIcon } from './file-styled'
+import fileWhiteIcon from 'ui/icons/file-white-icon.svg'
 
+type FileInativeProps = { file: { id?: number, name: string } }
 function FileInative ({ file }: FileInativeProps) {
   return (
     <FileLink href={'/' + file.name}>
@@ -11,5 +13,18 @@ function FileInative ({ file }: FileInativeProps) {
     </FileLink>
   )
 }
+
+const ButtonDelete = styled.button`${({ theme }) => css`
+  background-image: url(${deleteIcon});
+  background-color: ${theme.colors.black};
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  height: 8px;
+  opacity: 0;
+  width: 8px;
+`}`
 
 export { FileInative }

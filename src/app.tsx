@@ -1,8 +1,9 @@
-import { FileArray } from 'types/types'
 import styled from 'styled-components/macro'
+import { File } from 'resources/files/types'
 import { Sidebar } from 'sidebar'
 import { Content } from 'content'
 
+type FileArray = File[]
 function App () {
   const fileList: FileArray = [
     {
@@ -32,14 +33,14 @@ function App () {
       name: 'License.md',
       content: '### Text 3',
       active: true,
-      status: 'salved',
+      status: 'saved',
     },
     {
       id: 4,
       name: 'Links.md',
       content: '#### Text 4',
       active: false,
-      status: 'salved',
+      status: 'saved',
     },
   ]
 

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
-import { ContentOutput } from 'types/types'
 
+export type ContentOutput = { content: string }
 function Output ({ content }: ContentOutput) {
   const markdownParser = content
 
