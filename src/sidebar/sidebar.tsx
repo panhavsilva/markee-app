@@ -15,7 +15,9 @@ function Sidebar ({ fileList }: FileList) {
         <img src={logo} alt='Logo' />
       </Logo>
       <Title>Arquivos</Title>
-      <ButtonAddFile><PlusIcon src={plus} alt='plus' /> Adicionar arquivo</ButtonAddFile>
+      <ButtonAddFile><PlusIcon src={plus} alt='Plus icon' />
+        {' '}Adicionar arquivo
+      </ButtonAddFile>
       <List>
         {fileList.map((file) => (
           file.active === true

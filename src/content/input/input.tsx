@@ -6,7 +6,7 @@ function Input () {
   return (
     <div>
       <File>
-        <img src={fileBlueIcon} alt='icon' />
+        <img src={fileBlueIcon} alt='File icon' />
         <FileName
           type='text'
           name='fileName'

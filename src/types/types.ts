@@ -31,3 +31,7 @@ export type FileInativeProps = {
     status?: 'editing' | 'saving' | 'salved'
   }
 }
+
+export type ContentOutput = {
+  content: string
+}

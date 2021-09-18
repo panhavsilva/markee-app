@@ -1,14 +1,14 @@
 import { FileInativeProps } from 'types/types'
-import { FileIcon, FileTitle, ButtonDelete } from './file-styled'
+import { FileLink, FileIcon, ButtonDelete } from './file-styled'
 import fileWhiteIcon from 'assets/file-white-icon.svg'
 
 function FileInative ({ file }: FileInativeProps) {
   return (
-    <>
-      <FileIcon src={fileWhiteIcon} alt='file icon' />
-      <FileTitle>{file.name}</FileTitle>
+    <FileLink href={'/' + file.name}>
+      <FileIcon src={fileWhiteIcon} alt='File icon' />
+      {file.name}
       <ButtonDelete />
-    </>
+    </FileLink>
   )
 }
 
