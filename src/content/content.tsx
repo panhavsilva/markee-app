@@ -1,8 +1,6 @@
-import styled, { css } from 'styled-components/macro'
 import { File } from 'resources/files/types'
 import fileBlueIcon from 'ui/icons/file-blue-icon.svg'
-import { Input, FileName, FileNameIcon } from './input/file-styled'
-import { Textarea } from './input/textarea'
+import { Main, Input, FileName, FileNameIcon, Textarea } from './content-styled'
 import { Output } from './output'
 
 type FileList = { fileList: File[] }
@@ -17,17 +15,10 @@ function Content ({ fileList }: FileList) {
           autoFocus
         />
       </Input>
-      <Textarea />
+      <Textarea placeholder='Digite aqui seu markdown' />
       <Output content={fileList[0].content} />
     </Main>
   )
 }
-
-const Main = styled.main`${({ theme }) => css`
-  background: ${theme.colors.white};
-  display: grid;
-  grid-template-areas: "head head" "textarea output";
-  grid-template-rows: 89px 1fr;
-`}`
 
 export { Content }
