@@ -47,7 +47,7 @@ function App () {
   return (
     <Container>
       <Sidebar fileList={fileList} />
-      <Content fileList={fileList} />
+      <Content />
     </Container>
   )
 }

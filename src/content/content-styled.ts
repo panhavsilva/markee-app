@@ -4,6 +4,7 @@ export const Main = styled.main`${({ theme }) => css`
   background: ${theme.colors.white};
   display: grid;
   grid-template-areas: "head head" "textarea output";
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 89px 1fr;
 `}`
 
@@ -54,5 +55,31 @@ export const FileName = styled.input`${({ theme }) => css`
   width: 100%;
   :focus {
     outline: none;
+  }
+`}`
+
+export const OutputArticle = styled.article`${({ theme }) => css`
+  background: ${theme.colors.white};
+  border: none;
+  color: rgba(30, 41, 59, 0.7);
+  display: block;
+  font-size: 1.8rem;
+  font-weight: normal;
+  grid-area: output,
+  min-height: 80vh;
+  line-height: 23px;
+  padding: 0px 32px;
+  width: 100%;
+
+  h1, h2, h3, h4, h5, h6 {
+    color: ${theme.colors.black};
+    font-style: normal;
+    font-weight: bold;
+    line-height: 41.66px;
+    margin: 0 0 3px 0;
+  }
+
+  h1 {
+    font-size: 32px;
   }
 `}`

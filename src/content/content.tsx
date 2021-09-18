@@ -1,10 +1,29 @@
-import { File } from 'resources/files/types'
+import {
+  Main, Input, FileName, FileNameIcon, Textarea, OutputArticle,
+} from './content-styled'
 import fileBlueIcon from 'ui/icons/file-blue-icon.svg'
-import { Main, Input, FileName, FileNameIcon, Textarea } from './content-styled'
-import { Output } from './output'
+import { useState, ChangeEvent } from 'react'
+import marked from 'marked'
+import 'highlight.js/styles/github.css'
+import('highlight.js').then(hljs => {
+  const highlight = hljs.default
 
-type FileList = { fileList: File[] }
-function Content ({ fileList }: FileList) {
+  marked.setOptions({
+    highlight: (code, language) => {
+      if (language && highlight.getLanguage(language)) {
+        return highlight.highlight(code, { language }).value
+      }
+      return highlight.highlightAuto(code).value
+    },
+  })
+})
+
+function Content () {
+  const [content, setContent] = useState('')
+  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    return setContent(event.target.value)
+  }
+
   return (
     <Main>
       <Input>
@@ -15,8 +34,12 @@ function Content ({ fileList }: FileList) {
           autoFocus
         />
       </Input>
-      <Textarea placeholder='Digite aqui seu markdown' />
-      <Output content={fileList[0].content} />
+      <Textarea
+        placeholder='Digite aqui seu markdown'
+        value={content}
+        onChange={handleChange}
+      />
+      <OutputArticle dangerouslySetInnerHTML={{ __html: marked(content) }} />
     </Main>
   )
 }
