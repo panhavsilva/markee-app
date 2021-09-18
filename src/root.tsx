@@ -23,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
   }
 `
 
