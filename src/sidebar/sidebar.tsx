@@ -9,16 +9,20 @@ import {
   Aside, Logo, Title, ButtonAddFile, PlusIcon, List, Files, FileHover,
 } from './sidebar-styled'
 
-type SidebarProps = { inputRef: RefObject<HTMLInputElement> }
-export function Sidebar ({ inputRef }: SidebarProps) {
+type SidebarProps = {
+  inputRef: RefObject<HTMLInputElement>
+  textAreaRef: RefObject<HTMLTextAreaElement>
+}
+export function Sidebar ({ inputRef, textAreaRef }: SidebarProps) {
   const [files, setFile] = useState<File[]>([])
 
-  const handleClick = () => {
+  const handleCreateFile = () => {
     inputRef.current?.focus()
+
     const newFile: File[] = [{
       id: v4(),
-      name: 'Sem título',
-      content: '',
+      name: String(inputRef.current?.value),
+      content: String(textAreaRef.current?.value),
       active: true,
       status: 'saved',
     }]
@@ -35,7 +39,7 @@ export function Sidebar ({ inputRef }: SidebarProps) {
     <Aside>
       <Logo><img src={logo} alt='Logo' /></Logo>
       <Title>Arquivos</Title>
-      <ButtonAddFile onClick={handleClick}>
+      <ButtonAddFile onClick={handleCreateFile}>
         <PlusIcon src={plus} alt='Plus icon' />{' '}Adicionar arquivo
       </ButtonAddFile>
       <List>

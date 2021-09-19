@@ -5,11 +5,12 @@ import { Content } from 'content'
 
 export function App () {
   const inputRef = useRef<HTMLInputElement>(null)
+  const textAreaRef = useRef<HTMLTextAreaElement>(null)
 
   return (
     <Container>
-      <Sidebar inputRef={inputRef} />
-      <Content inputRef={inputRef} />
+      <Sidebar inputRef={inputRef} textAreaRef={textAreaRef} />
+      <Content inputRef={inputRef} textAreaRef={textAreaRef} />
     </Container>
   )
 }

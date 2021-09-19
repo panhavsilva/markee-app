@@ -18,11 +18,19 @@ import('highlight.js').then(hljs => {
   })
 })
 
-type ContentProps = { inputRef: RefObject<HTMLInputElement> }
-export function Content ({ inputRef }: ContentProps) {
+type ContentProps = {
+  inputRef: RefObject<HTMLInputElement>
+  textAreaRef: RefObject<HTMLTextAreaElement>
+}
+export function Content ({ inputRef, textAreaRef }: ContentProps) {
   const [content, setContent] = useState('')
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const [title, setTitle] = useState('Sem Título')
+
+  const handleChangeContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
     return setContent(event.target.value)
+  }
+  const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
+    return setTitle(event.target.value)
   }
 
   return (
@@ -30,16 +38,18 @@ export function Content ({ inputRef }: ContentProps) {
       <InputDiv>
         <FileNameIcon src={fileBlueIcon} alt='File icon' />
         <FileNameInput
-          type='text'
-          defaultValue='Sem título'
+          key='inputFileName'
+          value={title}
           autoFocus
           ref={inputRef}
+          onChange={handleChangeTitle}
         />
       </InputDiv>
       <Textarea
         placeholder='Digite aqui seu markdown'
         value={content}
-        onChange={handleChange}
+        onChange={handleChangeContent}
+        ref={textAreaRef}
       />
       <OutputArticle dangerouslySetInnerHTML={{ __html: marked(content) }} />
     </Main>
