@@ -4,7 +4,7 @@ import { FileLink, FileIcon } from './file-styled'
 import fileWhiteIcon from 'ui/icons/file-white-icon.svg'
 
 type FileInativeProps = { file: { id: string, name: string } }
-function FileInative ({ file }: FileInativeProps) {
+export function FileInative ({ file }: FileInativeProps) {
   return (
     <FileLink href={`/file/${file.id}`}>
       <FileIcon src={fileWhiteIcon} alt='File icon' />
@@ -26,5 +26,3 @@ const ButtonDelete = styled.button`${({ theme }) => css`
   opacity: 0;
   width: 8px;
 `}`
-
-export { FileInative }

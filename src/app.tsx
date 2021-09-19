@@ -6,7 +6,7 @@ import { Sidebar } from 'sidebar'
 import { Content } from 'content'
 
 type FileArray = File[]
-function App () {
+export function App () {
   const fileList: FileArray = [
     {
       id: v4(),
@@ -70,5 +70,3 @@ const Container = styled.div`
   grid-template-columns: 332px 1fr;
   min-height: 100vh;
 `
-
-export { App }

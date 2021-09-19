@@ -18,7 +18,7 @@ import('highlight.js').then(hljs => {
   })
 })
 
-function Content () {
+export function Content () {
   const [content, setContent] = useState('')
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     return setContent(event.target.value)
@@ -43,5 +43,3 @@ function Content () {
     </Main>
   )
 }
-
-export { Content }

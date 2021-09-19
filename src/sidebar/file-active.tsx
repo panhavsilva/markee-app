@@ -4,7 +4,7 @@ import { FileIcon, FileLinkActive } from './file-styled'
 import { StatusIconEditing } from './status-icon'
 
 type FileActiveProps = { file: { id: string, name: string, status: Status } }
-function FileActive ({ file }: FileActiveProps) {
+export function FileActive ({ file }: FileActiveProps) {
   return (
     <FileLinkActive href={`/file/${file.id}`}>
       <FileIcon src={fileBlueIcon} alt='File icon' />
@@ -13,5 +13,3 @@ function FileActive ({ file }: FileActiveProps) {
     </FileLinkActive>
   )
 }
-
-export { FileActive }
