@@ -48,18 +48,26 @@ export function App () {
 
   const [files, setFile] = useState<FileArray>(fileList)
 
-  const addFile = (file: FileArray) => {
+  const handleClick = () => {
+    const newFile: FileArray = [{
+      id: v4(),
+      name: 'Sem título',
+      content: '',
+      active: true,
+      status: 'saved',
+    }]
+
     setFile(files => files
       .map(file => ({
         ...file,
         active: false,
       }))
-      .concat(file))
+      .concat(newFile))
   }
 
   return (
     <Container>
-      <Sidebar fileList={files} setFile={addFile} />
+      <Sidebar fileList={files} handleClick={handleClick} />
       <Content />
     </Container>
   )

@@ -1,5 +1,4 @@
-import { v4 } from 'uuid'
-import { Dispatch } from 'react'
+import { MouseEventHandler } from 'react'
 import { File } from 'resources/files/types'
 import plus from 'ui/icons/plus-symbol.svg'
 import logo from './logo.svg'
@@ -9,21 +8,8 @@ import {
   Aside, Logo, Title, ButtonAddFile, PlusIcon, List, Files, FileHover,
 } from './sidebar-styled'
 
-type FileArray = File[]
-type SidebarProps = { fileList: File[], setFile: Dispatch<FileArray> }
-export function Sidebar ({ fileList, setFile }: SidebarProps) {
-  const handleClick = () => {
-    const newFile: FileArray = [{
-      id: v4(),
-      name: 'Sem título',
-      content: '',
-      active: true,
-      status: 'saved',
-    }]
-
-    return setFile(newFile)
-  }
-
+type SidebarProps = { fileList: File[], handleClick: MouseEventHandler<HTMLButtonElement> }
+export function Sidebar ({ fileList, handleClick }: SidebarProps) {
   return (
     <Aside>
       <Logo><img src={logo} alt='Logo' /></Logo>
