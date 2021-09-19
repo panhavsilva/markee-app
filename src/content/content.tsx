@@ -18,9 +18,7 @@ import('highlight.js').then(hljs => {
   })
 })
 
-type ContentProps = {
-  inputRef: RefObject<HTMLInputElement>
-}
+type ContentProps = { inputRef: RefObject<HTMLInputElement> }
 export function Content ({ inputRef }: ContentProps) {
   const [content, setContent] = useState('')
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {

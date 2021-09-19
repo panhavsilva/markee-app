@@ -1,4 +1,5 @@
-import { MouseEventHandler } from 'react'
+import { v4 } from 'uuid'
+import { useState, RefObject } from 'react'
 import { File } from 'resources/files/types'
 import plus from 'ui/icons/plus-symbol.svg'
 import logo from './logo.svg'
@@ -8,8 +9,28 @@ import {
   Aside, Logo, Title, ButtonAddFile, PlusIcon, List, Files, FileHover,
 } from './sidebar-styled'
 
-type SidebarProps = { fileList: File[], handleClick: MouseEventHandler<HTMLButtonElement> }
-export function Sidebar ({ fileList, handleClick }: SidebarProps) {
+type SidebarProps = { inputRef: RefObject<HTMLInputElement> }
+export function Sidebar ({ inputRef }: SidebarProps) {
+  const [files, setFile] = useState<File[]>([])
+
+  const handleClick = () => {
+    inputRef.current?.focus()
+    const newFile: File[] = [{
+      id: v4(),
+      name: 'Sem título',
+      content: '',
+      active: true,
+      status: 'saved',
+    }]
+
+    setFile(files => files
+      .map(file => ({
+        ...file,
+        active: false,
+      }))
+      .concat(newFile))
+  }
+
   return (
     <Aside>
       <Logo><img src={logo} alt='Logo' /></Logo>
@@ -18,7 +39,7 @@ export function Sidebar ({ fileList, handleClick }: SidebarProps) {
         <PlusIcon src={plus} alt='Plus icon' />{' '}Adicionar arquivo
       </ButtonAddFile>
       <List>
-        {fileList.map((file) => (
+        {files.map((file) => (
           file.active === true
             ? <Files key={file.id}><FileActive file={file} /></Files>
             : <FileHover key={file.id}><FileInative file={file} /></FileHover>
