@@ -46,10 +46,15 @@ function App () {
     },
   ]
 
-  const [files, setFile] = useState(fileList)
+  const [files, setFile] = useState<FileArray>(fileList)
 
   const addFile = (file: FileArray) => {
-    return setFile(f => f.concat(file))
+    setFile(files => files
+      .map(file => ({
+        ...file,
+        active: false,
+      }))
+      .concat(file))
   }
 
   return (
