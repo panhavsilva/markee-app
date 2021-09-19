@@ -30,7 +30,7 @@ export const Textarea = styled.textarea`${({ theme }) => css`
   }
 `}`
 
-export const Input = styled.div`
+export const InputDiv = styled.div`
   align-items: center;
   display: flex;
   grid-area: head;
@@ -42,7 +42,7 @@ export const FileNameIcon = styled.img`
   width: 24px;
 `
 
-export const FileName = styled.input`${({ theme }) => css`
+export const FileNameInput = styled.input`${({ theme }) => css`
   background: ${theme.colors.white};
   border: none;
   color: ${theme.colors.black};

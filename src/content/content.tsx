@@ -1,8 +1,8 @@
 import {
-  Main, Input, FileName, FileNameIcon, Textarea, OutputArticle,
+  Main, InputDiv, FileNameInput, FileNameIcon, Textarea, OutputArticle,
 } from './content-styled'
 import fileBlueIcon from 'ui/icons/file-blue-icon.svg'
-import { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, RefObject } from 'react'
 import marked from 'marked'
 import 'highlight.js/styles/github.css'
 import('highlight.js').then(hljs => {
@@ -18,7 +18,10 @@ import('highlight.js').then(hljs => {
   })
 })
 
-export function Content () {
+type ContentProps = {
+  inputRef: RefObject<HTMLInputElement>
+}
+export function Content ({ inputRef }: ContentProps) {
   const [content, setContent] = useState('')
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     return setContent(event.target.value)
@@ -26,14 +29,15 @@ export function Content () {
 
   return (
     <Main>
-      <Input>
+      <InputDiv>
         <FileNameIcon src={fileBlueIcon} alt='File icon' />
-        <FileName
+        <FileNameInput
           type='text'
           defaultValue='Sem título'
           autoFocus
+          ref={inputRef}
         />
-      </Input>
+      </InputDiv>
       <Textarea
         placeholder='Digite aqui seu markdown'
         value={content}
