@@ -1,10 +1,10 @@
+import marked from 'marked'
+import 'highlight.js/styles/github.css'
+import { useState, ChangeEvent, RefObject, Dispatch, SetStateAction } from 'react'
 import {
   Main, InputDiv, FileNameInput, FileNameIcon, Textarea, OutputArticle,
 } from './content-styled'
 import fileBlueIcon from 'ui/icons/file-blue-icon.svg'
-import { useState, ChangeEvent, RefObject } from 'react'
-import marked from 'marked'
-import 'highlight.js/styles/github.css'
 import('highlight.js').then(hljs => {
   const highlight = hljs.default
 
@@ -20,9 +20,9 @@ import('highlight.js').then(hljs => {
 
 type ContentProps = {
   inputRef: RefObject<HTMLInputElement>
-  textAreaRef: RefObject<HTMLTextAreaElement>
+  setTitleFile: Dispatch<SetStateAction<string>>
 }
-export function Content ({ inputRef, textAreaRef }: ContentProps) {
+export function Content ({ inputRef, setTitleFile }: ContentProps) {
   const [content, setContent] = useState('')
   const [title, setTitle] = useState('Sem Título')
 
@@ -30,7 +30,8 @@ export function Content ({ inputRef, textAreaRef }: ContentProps) {
     return setContent(event.target.value)
   }
   const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
-    return setTitle(event.target.value)
+    setTitle(event.target.value)
+    setTitleFile(event.target.value)
   }
 
   return (
@@ -49,7 +50,6 @@ export function Content ({ inputRef, textAreaRef }: ContentProps) {
         placeholder='Digite aqui seu markdown'
         value={content}
         onChange={handleChangeContent}
-        ref={textAreaRef}
       />
       <OutputArticle dangerouslySetInnerHTML={{ __html: marked(content) }} />
     </Main>

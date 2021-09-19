@@ -11,9 +11,9 @@ import {
 
 type SidebarProps = {
   inputRef: RefObject<HTMLInputElement>
-  textAreaRef: RefObject<HTMLTextAreaElement>
+  titleFile: string
 }
-export function Sidebar ({ inputRef, textAreaRef }: SidebarProps) {
+export function Sidebar ({ inputRef, titleFile }: SidebarProps) {
   const [files, setFile] = useState<File[]>([])
 
   const handleCreateFile = () => {
@@ -21,8 +21,8 @@ export function Sidebar ({ inputRef, textAreaRef }: SidebarProps) {
 
     const newFile: File[] = [{
       id: v4(),
-      name: String(inputRef.current?.value),
-      content: String(textAreaRef.current?.value),
+      name: 'Sem título',
+      content: '',
       active: true,
       status: 'saved',
     }]
@@ -45,8 +45,16 @@ export function Sidebar ({ inputRef, textAreaRef }: SidebarProps) {
       <List>
         {files.map((file) => (
           file.active === true
-            ? <Files key={file.id}><FileActive file={file} /></Files>
-            : <FileHover key={file.id}><FileInative file={file} /></FileHover>
+            ? (
+              <Files key={file.id}>
+                <FileActive file={{ ...file, name: titleFile }} />
+              </Files>
+              )
+            : (
+              <FileHover key={file.id}>
+                <FileInative file={file} />
+              </FileHover>
+              )
         ))}
       </List>
     </Aside>

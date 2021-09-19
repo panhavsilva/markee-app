@@ -1,16 +1,16 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import styled from 'styled-components/macro'
 import { Sidebar } from 'sidebar'
 import { Content } from 'content'
 
 export function App () {
   const inputRef = useRef<HTMLInputElement>(null)
-  const textAreaRef = useRef<HTMLTextAreaElement>(null)
+  const [titleFile, setTitleFile] = useState('Sem Título')
 
   return (
     <Container>
-      <Sidebar inputRef={inputRef} textAreaRef={textAreaRef} />
-      <Content inputRef={inputRef} textAreaRef={textAreaRef} />
+      <Sidebar inputRef={inputRef} titleFile={titleFile} />
+      <Content inputRef={inputRef} setTitleFile={setTitleFile} />
     </Container>
   )
 }
