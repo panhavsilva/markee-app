@@ -1,5 +1,5 @@
 import { v4 } from 'uuid'
-import { useState, RefObject } from 'react'
+import { useEffect, useState, RefObject, MouseEvent } from 'react'
 import { File } from 'resources/files/types'
 import plus from 'ui/icons/plus-symbol.svg'
 import logo from './logo.svg'
@@ -15,6 +15,9 @@ type SidebarProps = {
 }
 export function Sidebar ({ inputRef, titleFile }: SidebarProps) {
   const [files, setFile] = useState<File[]>([])
+  useEffect(() => {
+
+  }, [files])
 
   const handleCreateFile = () => {
     inputRef.current?.focus()
@@ -34,6 +37,13 @@ export function Sidebar ({ inputRef, titleFile }: SidebarProps) {
       }))
       .concat(newFile))
   }
+  const handleSelectFile = (event: MouseEvent, id: string) => {
+    event.preventDefault()
+    setFile(files => files
+      .map(file => (file.id === id
+        ? { ...file, active: true, status: 'editing' }
+        : { ...file, active: false })))
+  }
 
   return (
     <Aside>
@@ -51,7 +61,7 @@ export function Sidebar ({ inputRef, titleFile }: SidebarProps) {
               </Files>
               )
             : (
-              <FileHover key={file.id}>
+              <FileHover key={file.id} onClick={(event) => handleSelectFile(event, file.id)}>
                 <FileInative file={file} />
               </FileHover>
               )
