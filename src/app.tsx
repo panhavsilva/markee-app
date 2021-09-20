@@ -1,16 +1,21 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
+import { File } from 'resources/files/types'
 import styled from 'styled-components/macro'
 import { Sidebar } from 'sidebar'
 import { Content } from 'content'
 
 export function App () {
   const inputRef = useRef<HTMLInputElement>(null)
-  const [titleFile, setTitleFile] = useState('Sem Título')
+  const [files, setFile] = useState<File[]>([])
+  console.log('antes: ', files)
+  useEffect(() => {
+    console.log('useEffetc: ', files)
+  }, [files])
 
   return (
     <Container>
-      <Sidebar inputRef={inputRef} titleFile={titleFile} />
-      <Content inputRef={inputRef} setTitleFile={setTitleFile} />
+      <Sidebar inputRef={inputRef} files={files} setFile={setFile} />
+      <Content inputRef={inputRef} />
     </Container>
   )
 }

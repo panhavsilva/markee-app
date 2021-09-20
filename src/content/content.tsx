@@ -1,6 +1,6 @@
 import marked from 'marked'
 import 'highlight.js/styles/github.css'
-import { useState, ChangeEvent, RefObject, Dispatch, SetStateAction } from 'react'
+import { useState, useEffect, ChangeEvent, RefObject } from 'react'
 import {
   Main, InputDiv, FileNameInput, FileNameIcon, Textarea, OutputArticle,
 } from './content-styled'
@@ -20,18 +20,20 @@ import('highlight.js').then(hljs => {
 
 type ContentProps = {
   inputRef: RefObject<HTMLInputElement>
-  setTitleFile: Dispatch<SetStateAction<string>>
 }
-export function Content ({ inputRef, setTitleFile }: ContentProps) {
+export function Content ({ inputRef }: ContentProps) {
   const [content, setContent] = useState('')
   const [title, setTitle] = useState('Sem Título')
+
+  useEffect(() => {
+
+  }, [title])
 
   const handleChangeContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
     return setContent(event.target.value)
   }
   const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value)
-    setTitleFile(event.target.value)
   }
 
   return (

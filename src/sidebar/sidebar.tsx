@@ -1,30 +1,25 @@
+import { RefObject, MouseEvent, Dispatch, SetStateAction } from 'react'
 import { v4 } from 'uuid'
-import { useEffect, useState, RefObject, MouseEvent } from 'react'
 import { File } from 'resources/files/types'
 import plus from 'ui/icons/plus-symbol.svg'
+import fileWhiteIcon from 'ui/icons/file-white-icon.svg'
+import fileBlueIcon from 'ui/icons/file-blue-icon.svg'
 import logo from './logo.svg'
-import { FileActive } from './file-active'
-import { FileInative } from './file-inative'
-import {
-  Aside, Logo, Title, ButtonAddFile, PlusIcon, List, Files, FileHover,
-} from './sidebar-styled'
+import { StatusIconEditing } from './status-icon'
+import * as S from './sidebar-styled'
 
 type SidebarProps = {
   inputRef: RefObject<HTMLInputElement>
-  titleFile: string
+  files: File[]
+  setFile: Dispatch<SetStateAction<File[]>>
 }
-export function Sidebar ({ inputRef, titleFile }: SidebarProps) {
-  const [files, setFile] = useState<File[]>([])
-  useEffect(() => {
-
-  }, [files])
-
+export function Sidebar ({ inputRef, files, setFile }: SidebarProps) {
   const handleCreateFile = () => {
     inputRef.current?.focus()
 
     const newFile: File[] = [{
       id: v4(),
-      name: 'Sem título',
+      name: 'Sem Título',
       content: '',
       active: true,
       status: 'saved',
@@ -37,36 +32,48 @@ export function Sidebar ({ inputRef, titleFile }: SidebarProps) {
       }))
       .concat(newFile))
   }
-  const handleSelectFile = (event: MouseEvent, id: string) => {
+  const handleSelectFile = (event: MouseEvent, fileSelected: File) => {
     event.preventDefault()
     setFile(files => files
-      .map(file => (file.id === id
+      .map(file => (file.id === fileSelected.id
         ? { ...file, active: true, status: 'editing' }
         : { ...file, active: false })))
   }
+  const handleDeleteFile = (event: MouseEvent, id: string) => {
+    event.preventDefault()
+    setFile(files => files.filter(file => file.id !== id))
+  }
 
   return (
-    <Aside>
-      <Logo><img src={logo} alt='Logo' /></Logo>
-      <Title>Arquivos</Title>
-      <ButtonAddFile onClick={handleCreateFile}>
-        <PlusIcon src={plus} alt='Plus icon' />{' '}Adicionar arquivo
-      </ButtonAddFile>
-      <List>
+    <S.Aside>
+      <S.Logo><img src={logo} alt='Logo' /></S.Logo>
+      <S.Title>Arquivos</S.Title>
+      <S.ButtonAddFile onClick={handleCreateFile}>
+        <S.PlusIcon src={plus} alt='Plus icon' />{' '}Adicionar arquivo
+      </S.ButtonAddFile>
+      <S.List>
         {files.map((file) => (
           file.active === true
             ? (
-              <Files key={file.id}>
-                <FileActive file={{ ...file, name: titleFile }} />
-              </Files>
+              <S.Files key={file.id}>
+                <S.FileLinkActive href={`/file/${file.id}`}>
+                  <S.FileIcon src={fileBlueIcon} alt='File icon' />
+                  {file.name}
+                  <StatusIconEditing status={file.status} />
+                </S.FileLinkActive>
+              </S.Files>
               )
             : (
-              <FileHover key={file.id} onClick={(event) => handleSelectFile(event, file.id)}>
-                <FileInative file={file} />
-              </FileHover>
+              <S.FileHover key={file.id}>
+                <S.FileLink href={`/file/${file.id}`} onClick={(event) => handleSelectFile(event, file)}>
+                  <S.FileIcon src={fileWhiteIcon} alt='File icon' />
+                  {file.name}
+                </S.FileLink>
+                <S.ButtonDelete onClick={(event) => handleDeleteFile(event, file.id)} />
+              </S.FileHover>
               )
         ))}
-      </List>
-    </Aside>
+      </S.List>
+    </S.Aside>
   )
 }
