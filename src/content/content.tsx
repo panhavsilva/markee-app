@@ -31,12 +31,12 @@ export function Content ({ inputRef, setFile, file }: ContentProps) {
   const handleChangeContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value)
     setFile(files => files.map(file => file.active === true
-      ? { ...file, content: event.target.value }
+      ? { ...file, content: event.target.value, status: 'editing' }
       : { ...file }))
   }
   const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setFile(files => files.map(file => file.active === true
-      ? { ...file, name: event.target.value }
+      ? { ...file, name: event.target.value, status: 'editing' }
       : { ...file }))
   }
 
