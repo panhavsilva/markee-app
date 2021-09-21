@@ -7,15 +7,33 @@ import { Content } from 'content'
 export function App () {
   const inputRef = useRef<HTMLInputElement>(null)
   const [files, setFile] = useState<File[]>([])
+  const [activeFile, setActiveFile] = useState<File>({
+    id: '1',
+    name: 'Sem título',
+    content: '',
+    status: 'saved',
+    active: true,
+  })
 
   useEffect(() => {
-
+    if (files.length > 0) {
+      const fileActive = files.filter(file => file.active === true)[0]
+      setActiveFile(fileActive)
+    }
   }, [files])
 
   return (
     <Container>
-      <Sidebar inputRef={inputRef} files={files} setFile={setFile} />
-      <Content inputRef={inputRef} setFile={setFile} />
+      <Sidebar
+        inputRef={inputRef}
+        files={files}
+        setFile={setFile}
+      />
+      <Content
+        inputRef={inputRef}
+        setFile={setFile}
+        file={activeFile}
+      />
     </Container>
   )
 }

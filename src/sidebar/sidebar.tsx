@@ -30,6 +30,7 @@ export function Sidebar ({ inputRef, files, setFile }: SidebarProps) {
         ...file,
         active: false,
       }))
+      .filter(file => file.id !== '1')
       .concat(newFile))
   }
   const handleSelectFile = (event: MouseEvent, fileSelected: File) => {
