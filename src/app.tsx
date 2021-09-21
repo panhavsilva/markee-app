@@ -7,15 +7,15 @@ import { Content } from 'content'
 export function App () {
   const inputRef = useRef<HTMLInputElement>(null)
   const [files, setFile] = useState<File[]>([])
-  console.log('antes: ', files)
+
   useEffect(() => {
-    console.log('useEffetc: ', files)
+
   }, [files])
 
   return (
     <Container>
       <Sidebar inputRef={inputRef} files={files} setFile={setFile} />
-      <Content inputRef={inputRef} />
+      <Content inputRef={inputRef} setFile={setFile} />
     </Container>
   )
 }

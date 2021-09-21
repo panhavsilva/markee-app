@@ -1,13 +1,13 @@
 import marked from 'marked'
 import 'highlight.js/styles/github.css'
-import { useState, useEffect, ChangeEvent, RefObject } from 'react'
 import {
-  Main, InputDiv, FileNameInput, FileNameIcon, Textarea, OutputArticle,
-} from './content-styled'
+  useState, ChangeEvent, RefObject, Dispatch, SetStateAction,
+} from 'react'
+import * as S from './content-styled'
 import fileBlueIcon from 'ui/icons/file-blue-icon.svg'
+import { File } from 'resources/files/types'
 import('highlight.js').then(hljs => {
   const highlight = hljs.default
-
   marked.setOptions({
     highlight: (code, language) => {
       if (language && highlight.getLanguage(language)) {
@@ -20,40 +20,38 @@ import('highlight.js').then(hljs => {
 
 type ContentProps = {
   inputRef: RefObject<HTMLInputElement>
+  setFile: Dispatch<SetStateAction<File[]>>
 }
-export function Content ({ inputRef }: ContentProps) {
+export function Content ({ inputRef, setFile }: ContentProps) {
   const [content, setContent] = useState('')
-  const [title, setTitle] = useState('Sem Título')
-
-  useEffect(() => {
-
-  }, [title])
+  const [title, setTitle] = useState('Sem título')
 
   const handleChangeContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    return setContent(event.target.value)
+    setContent(event.target.value)
   }
   const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value)
+    setFile(files => files.map(file => file.active === true
+      ? { ...file, name: title }
+      : { ...file }))
   }
 
   return (
-    <Main>
-      <InputDiv>
-        <FileNameIcon src={fileBlueIcon} alt='File icon' />
-        <FileNameInput
-          key='inputFileName'
-          value={title}
+    <S.Main>
+      <S.InputDiv>
+        <S.FileNameIcon src={fileBlueIcon} alt='File icon' />
+        <S.FileNameInput
+          defaultValue='Sem título'
           autoFocus
           ref={inputRef}
           onChange={handleChangeTitle}
         />
-      </InputDiv>
-      <Textarea
+      </S.InputDiv>
+      <S.Textarea
         placeholder='Digite aqui seu markdown'
-        value={content}
         onChange={handleChangeContent}
       />
-      <OutputArticle dangerouslySetInnerHTML={{ __html: marked(content) }} />
-    </Main>
+      <S.OutputArticle dangerouslySetInnerHTML={{ __html: marked(content) }} />
+    </S.Main>
   )
 }
