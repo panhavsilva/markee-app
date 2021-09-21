@@ -33,11 +33,25 @@ export function Content ({ inputRef, setFile, file }: ContentProps) {
     setFile(files => files.map(file => file.active === true
       ? { ...file, content: event.target.value, status: 'editing' }
       : { ...file }))
+    handleStatus()
   }
   const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setFile(files => files.map(file => file.active === true
       ? { ...file, name: event.target.value, status: 'editing' }
       : { ...file }))
+    handleStatus()
+  }
+  const handleStatus = () => {
+    setTimeout(() => {
+      setFile(files => files.map(file => file.active === true
+        ? { ...file, status: 'saving' }
+        : { ...file }))
+    }, 300)
+    setTimeout(() => {
+      setFile(files => files.map(file => file.active === true
+        ? { ...file, status: 'saved' }
+        : { ...file }))
+    }, 600)
   }
 
   return (
