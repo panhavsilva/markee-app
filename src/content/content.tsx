@@ -1,13 +1,13 @@
-import {
-  Main, InputDiv, FileNameInput, FileNameIcon, Textarea, OutputArticle,
-} from './content-styled'
-import fileBlueIcon from 'ui/icons/file-blue-icon.svg'
-import { useState, ChangeEvent, RefObject } from 'react'
 import marked from 'marked'
 import 'highlight.js/styles/github.css'
+import {
+  useState, ChangeEvent, RefObject, Dispatch, SetStateAction,
+} from 'react'
+import * as S from './content-styled'
+import fileBlueIcon from 'ui/icons/file-blue-icon.svg'
+import { File } from 'resources/files/types'
 import('highlight.js').then(hljs => {
   const highlight = hljs.default
-
   marked.setOptions({
     highlight: (code, language) => {
       if (language && highlight.getLanguage(language)) {
@@ -18,30 +18,59 @@ import('highlight.js').then(hljs => {
   })
 })
 
-type ContentProps = { inputRef: RefObject<HTMLInputElement> }
-export function Content ({ inputRef }: ContentProps) {
-  const [content, setContent] = useState('')
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    return setContent(event.target.value)
+type ContentProps = {
+  inputRef: RefObject<HTMLInputElement>
+  setFile: Dispatch<SetStateAction<File[]>>
+  file: File
+}
+export function Content ({ inputRef, setFile, file }: ContentProps) {
+  const [content, setContent] = useState(file.content)
+  const title = file.name
+  const textareaContent = file.content
+
+  const handleChangeContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(event.target.value)
+    setFile(files => files.map(file => file.active === true
+      ? { ...file, content: event.target.value, status: 'editing' }
+      : { ...file }))
+    handleStatus()
+  }
+  const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
+    setFile(files => files.map(file => file.active === true
+      ? { ...file, name: event.target.value, status: 'editing' }
+      : { ...file }))
+    handleStatus()
+  }
+  const handleStatus = () => {
+    setTimeout(() => {
+      setFile(files => files.map(file => file.active === true
+        ? { ...file, status: 'saving' }
+        : { ...file }))
+    }, 300)
+    setTimeout(() => {
+      setFile(files => files.map(file => file.active === true
+        ? { ...file, status: 'saved' }
+        : { ...file }))
+    }, 600)
   }
 
   return (
-    <Main>
-      <InputDiv>
-        <FileNameIcon src={fileBlueIcon} alt='File icon' />
-        <FileNameInput
-          type='text'
-          defaultValue='Sem título'
+    <S.Main>
+      <S.InputDiv>
+        <S.FileNameIcon src={fileBlueIcon} alt='File icon' />
+        <S.FileNameInput
+          value={title}
           autoFocus
           ref={inputRef}
+          onChange={handleChangeTitle}
         />
-      </InputDiv>
-      <Textarea
+      </S.InputDiv>
+      <S.Textarea
+        value={textareaContent}
         placeholder='Digite aqui seu markdown'
-        value={content}
-        onChange={handleChange}
+        onChange={handleChangeContent}
       />
-      <OutputArticle dangerouslySetInnerHTML={{ __html: marked(content) }} />
-    </Main>
+      <S.OutputArticle dangerouslySetInnerHTML={{ __html: marked(content) }} />
+    </S.Main>
   )
 }
