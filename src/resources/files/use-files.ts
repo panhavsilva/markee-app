@@ -1,5 +1,6 @@
 import { v4 } from 'uuid'
-import { useRef, useState, useEffect, MouseEvent } from 'react'
+import localforage from 'localforage'
+import { useRef, useState, useEffect, MouseEvent, ChangeEvent } from 'react'
 import { File } from 'resources/files/types'
 
 export function useFiles () {
@@ -8,11 +9,25 @@ export function useFiles () {
   const [activeFile, setActiveFile] = useState<File | null>(null)
 
   useEffect(() => {
+    async function storageInitial () {
+      const value: File[] | null = await localforage.getItem('files')
+      if (value !== null) {
+        setFile(value)
+      }
+    }
+    storageInitial()
+  }, [])
+
+  useEffect(() => {
     let timer: ReturnType<typeof setTimeout>
 
     if (files.length > 0) {
       const fileActive = files.filter(file => file.active === true)[0]
       setActiveFile(fileActive)
+    }
+
+    async function storage (files: File[]) {
+      await localforage.setItem('files', files)
     }
 
     function updateStatus () {
@@ -50,13 +65,12 @@ export function useFiles () {
     }
 
     updateStatus()
-
+    storage(files)
     return () => clearTimeout(timer)
   }, [files])
 
   const handleCreateFile = () => {
     inputRef.current?.focus()
-
     const newFile: File[] = [{
       id: v4(),
       name: 'Sem Título',
@@ -86,6 +100,18 @@ export function useFiles () {
         : { ...file, active: false })))
   }
 
+  const handleChangeContent = (event: ChangeEvent<HTMLTextAreaElement>, id: string) => {
+    setFile(files => files.map(file => file.id === id
+      ? { ...file, content: event.target.value, status: 'editing' }
+      : { ...file }))
+  }
+
+  const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>, id: string) => {
+    setFile(files => files.map(file => file.id === id
+      ? { ...file, name: event.target.value, status: 'editing' }
+      : { ...file }))
+  }
+
   return {
     inputRef,
     files,
@@ -94,5 +120,7 @@ export function useFiles () {
     handleCreateFile,
     handleDeleteFile,
     handleSelectFile,
+    handleChangeContent,
+    handleChangeTitle,
   }
 }
