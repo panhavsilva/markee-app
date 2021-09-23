@@ -1,6 +1,6 @@
 import marked from 'marked'
 import 'highlight.js/styles/github.css'
-import { ChangeEvent, RefObject, Dispatch, SetStateAction } from 'react'
+import { ChangeEvent, RefObject } from 'react'
 import * as S from './content-styled'
 import fileBlueIcon from 'ui/icons/file-blue-icon.svg'
 import { File } from 'resources/files/types'
@@ -18,24 +18,16 @@ import('highlight.js').then(hljs => {
 
 type ContentProps = {
   inputRef: RefObject<HTMLInputElement>
-  setFile: Dispatch<SetStateAction<File[]>>
-  file: File | null
+  file: File | null,
+  handleChangeContent: (event: ChangeEvent<HTMLTextAreaElement>, id: string) => void
+  handleChangeTitle: (event: ChangeEvent<HTMLInputElement>, id: string) => void
 }
-export function Content ({ inputRef, setFile, file }: ContentProps) {
+export function Content (props: ContentProps) {
+  const { inputRef, handleChangeTitle, file, handleChangeContent } = props
   if (file === null) {
     return null
   }
   const id = file.id
-  const handleChangeContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setFile(files => files.map(file => file.id === id
-      ? { ...file, content: event.target.value, status: 'editing' }
-      : { ...file }))
-  }
-  const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
-    setFile(files => files.map(file => file.id === id
-      ? { ...file, name: event.target.value, status: 'editing' }
-      : { ...file }))
-  }
 
   return (
     <S.Main>
@@ -44,14 +36,14 @@ export function Content ({ inputRef, setFile, file }: ContentProps) {
         <S.FileNameInput
           value={file.name}
           ref={inputRef}
-          onChange={handleChangeTitle}
+          onChange={(event) => handleChangeTitle(event, id)}
           autoFocus
         />
       </S.InputDiv>
       <S.Textarea
         value={file.content}
         placeholder='Digite aqui seu markdown'
-        onChange={handleChangeContent}
+        onChange={(event) => handleChangeContent(event, id)}
       />
       <S.OutputArticle dangerouslySetInnerHTML={{ __html: marked(file.content) }} />
     </S.Main>

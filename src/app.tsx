@@ -7,11 +7,12 @@ export function App () {
   const {
     inputRef,
     files,
-    setFile,
     activeFile,
     handleCreateFile,
     handleDeleteFile,
     handleSelectFile,
+    handleChangeContent,
+    handleChangeTitle,
   } = useFiles()
 
   return (
@@ -24,8 +25,9 @@ export function App () {
       />
       <Content
         inputRef={inputRef}
-        setFile={setFile}
         file={activeFile}
+        handleChangeContent={handleChangeContent}
+        handleChangeTitle={handleChangeTitle}
       />
     </Container>
   )

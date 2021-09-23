@@ -13,7 +13,9 @@ type SidebarProps = {
   handleDeleteFile: (event: MouseEvent, id: string) => void
   handleSelectFile: (event: MouseEvent, fileSelected: File) => void
 }
-export function Sidebar ({ files, handleSelectFile, handleCreateFile, handleDeleteFile }: SidebarProps) {
+export function Sidebar (props: SidebarProps) {
+  const { files, handleSelectFile, handleCreateFile, handleDeleteFile } = props
+
   return (
     <S.Aside>
       <S.Logo><img src={logo} alt='Logo' /></S.Logo>
