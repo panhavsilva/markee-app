@@ -1,5 +1,5 @@
-import { RefObject, MouseEvent, Dispatch, SetStateAction } from 'react'
 import { v4 } from 'uuid'
+import { RefObject, MouseEvent, Dispatch, SetStateAction } from 'react'
 import { File } from 'resources/files/types'
 import plus from 'ui/icons/plus-symbol.svg'
 import fileWhiteIcon from 'ui/icons/file-white-icon.svg'
@@ -30,7 +30,6 @@ export function Sidebar ({ inputRef, files, setFile }: SidebarProps) {
         ...file,
         active: false,
       }))
-      .filter(file => file.id !== '1')
       .concat(newFile))
   }
   const handleSelectFile = (event: MouseEvent, fileSelected: File) => {

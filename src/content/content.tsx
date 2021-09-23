@@ -1,8 +1,6 @@
 import marked from 'marked'
 import 'highlight.js/styles/github.css'
-import {
-  useState, ChangeEvent, RefObject, Dispatch, SetStateAction,
-} from 'react'
+import { ChangeEvent, RefObject, Dispatch, SetStateAction } from 'react'
 import * as S from './content-styled'
 import fileBlueIcon from 'ui/icons/file-blue-icon.svg'
 import { File } from 'resources/files/types'
@@ -21,37 +19,22 @@ import('highlight.js').then(hljs => {
 type ContentProps = {
   inputRef: RefObject<HTMLInputElement>
   setFile: Dispatch<SetStateAction<File[]>>
-  file: File
+  file: File | null
 }
 export function Content ({ inputRef, setFile, file }: ContentProps) {
-  const [content, setContent] = useState(file.content)
-  const title = file.name
-  const textareaContent = file.content
-
+  if (file === null) {
+    return null
+  }
+  const id = file.id
   const handleChangeContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(event.target.value)
-    setFile(files => files.map(file => file.active === true
+    setFile(files => files.map(file => file.id === id
       ? { ...file, content: event.target.value, status: 'editing' }
       : { ...file }))
-    handleStatus()
   }
   const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
-    setFile(files => files.map(file => file.active === true
+    setFile(files => files.map(file => file.id === id
       ? { ...file, name: event.target.value, status: 'editing' }
       : { ...file }))
-    handleStatus()
-  }
-  const handleStatus = () => {
-    setTimeout(() => {
-      setFile(files => files.map(file => file.active === true
-        ? { ...file, status: 'saving' }
-        : { ...file }))
-    }, 300)
-    setTimeout(() => {
-      setFile(files => files.map(file => file.active === true
-        ? { ...file, status: 'saved' }
-        : { ...file }))
-    }, 600)
   }
 
   return (
@@ -59,18 +42,18 @@ export function Content ({ inputRef, setFile, file }: ContentProps) {
       <S.InputDiv>
         <S.FileNameIcon src={fileBlueIcon} alt='File icon' />
         <S.FileNameInput
-          value={title}
-          autoFocus
+          value={file.name}
           ref={inputRef}
           onChange={handleChangeTitle}
+          autoFocus
         />
       </S.InputDiv>
       <S.Textarea
-        value={textareaContent}
+        value={file.content}
         placeholder='Digite aqui seu markdown'
         onChange={handleChangeContent}
       />
-      <S.OutputArticle dangerouslySetInnerHTML={{ __html: marked(content) }} />
+      <S.OutputArticle dangerouslySetInnerHTML={{ __html: marked(file.content) }} />
     </S.Main>
   )
 }
