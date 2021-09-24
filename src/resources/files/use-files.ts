@@ -10,8 +10,8 @@ export function useFiles () {
 
   useEffect(() => {
     async function storageInitial () {
-      const value: File[] | null = await localforage.getItem('files')
-      if (value !== null) {
+      const value = await localforage.getItem<File[]>('files')
+      if (value) {
         setFile(value)
       }
     }
@@ -19,15 +19,15 @@ export function useFiles () {
   }, [])
 
   useEffect(() => {
+    localforage.setItem('files', files)
+  }, [files])
+
+  useEffect(() => {
     let timer: ReturnType<typeof setTimeout>
 
     if (files.length > 0) {
       const fileActive = files.filter(file => file.active === true)[0]
       setActiveFile(fileActive)
-    }
-
-    async function storage (files: File[]) {
-      await localforage.setItem('files', files)
     }
 
     function updateStatus () {
@@ -65,7 +65,7 @@ export function useFiles () {
     }
 
     updateStatus()
-    storage(files)
+
     return () => clearTimeout(timer)
   }, [files])
 
