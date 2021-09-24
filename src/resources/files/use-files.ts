@@ -98,6 +98,7 @@ export function useFiles () {
       .map(file => (file.id === fileSelected.id
         ? { ...file, active: true, status: 'editing' }
         : { ...file, active: false })))
+    window.history.pushState(null, '', `/file/${fileSelected.id}`)
   }
 
   const handleChangeContent = (event: ChangeEvent<HTMLTextAreaElement>, id: string) => {
