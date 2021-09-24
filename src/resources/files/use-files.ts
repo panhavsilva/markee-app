@@ -13,6 +13,9 @@ export function useFiles () {
       const value = await localforage.getItem<File[]>('files')
       if (value) {
         setFile(value)
+        const valueActive = value.filter(file => file.active === true)[0]
+        setActiveFile(valueActive)
+        window.history.pushState(null, '', `/file/${valueActive.id}`)
       }
     }
     storageInitial()
