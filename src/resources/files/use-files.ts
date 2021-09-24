@@ -88,6 +88,8 @@ export function useFiles () {
         active: false,
       }))
       .concat(newFile))
+
+    window.history.pushState(null, '', `/file/${newFile[0].id}`)
   }
 
   const handleDeleteFile = (event: MouseEvent, id: string) => {
