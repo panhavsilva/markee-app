@@ -13,9 +13,6 @@ export function useFiles () {
       const value = await localforage.getItem<File[]>('files')
       if (value) {
         setFile(value)
-        const valueActive = value.filter(file => file.active === true)[0]
-        setActiveFile(valueActive)
-        window.history.pushState(null, '', `/file/${valueActive.id}`)
       }
     }
     storageInitial()
@@ -23,6 +20,13 @@ export function useFiles () {
 
   useEffect(() => {
     localforage.setItem('files', files)
+  }, [files])
+
+  useEffect(() => {
+    const selectedFile = files.filter(file => file.active === true)[0]
+    if (selectedFile) {
+      window.history.pushState(null, '', `/file/${selectedFile.id}`)
+    }
   }, [files])
 
   useEffect(() => {
@@ -88,8 +92,6 @@ export function useFiles () {
         active: false,
       }))
       .concat(newFile))
-
-    window.history.pushState(null, '', `/file/${newFile[0].id}`)
   }
 
   const handleDeleteFile = (event: MouseEvent, id: string) => {
@@ -103,7 +105,6 @@ export function useFiles () {
       .map(file => (file.id === fileSelected.id
         ? { ...file, active: true, status: 'editing' }
         : { ...file, active: false })))
-    window.history.pushState(null, '', `/file/${fileSelected.id}`)
   }
 
   const handleChangeContent = (event: ChangeEvent<HTMLTextAreaElement>, id: string) => {
