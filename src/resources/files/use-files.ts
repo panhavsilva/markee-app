@@ -1,22 +1,15 @@
-import { v4 } from 'uuid'
-import localforage from 'localforage'
 import { useRef, useState, useEffect, MouseEvent, ChangeEvent } from 'react'
+import localforage from 'localforage'
+import { v4 } from 'uuid'
 import { File } from 'resources/files/types'
+import { useMount } from './use-mount'
 
 export function useFiles () {
   const inputRef = useRef<HTMLInputElement>(null)
   const [files, setFile] = useState<File[]>([])
   const [activeFile, setActiveFile] = useState<File | null>(null)
 
-  useEffect(() => {
-    async function storageInitial () {
-      const value = await localforage.getItem<File[]>('files')
-      if (value) {
-        setFile(value)
-      }
-    }
-    storageInitial()
-  }, [])
+  useMount(setFile)
 
   useEffect(() => {
     localforage.setItem('files', files)
