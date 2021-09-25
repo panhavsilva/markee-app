@@ -19,15 +19,14 @@ import('highlight.js').then(hljs => {
 type ContentProps = {
   inputRef: RefObject<HTMLInputElement>
   file: File | null,
-  handleChangeContent: (event: ChangeEvent<HTMLTextAreaElement>, id: string) => void
-  handleChangeTitle: (event: ChangeEvent<HTMLInputElement>, id: string) => void
+  handleChangeContent: (id: string) => (event: ChangeEvent<HTMLTextAreaElement>) => void
+  handleChangeTitle: (id: string) => (event: ChangeEvent<HTMLInputElement>) => void
 }
 export function Content (props: ContentProps) {
   const { inputRef, handleChangeTitle, file, handleChangeContent } = props
   if (file === null) {
     return null
   }
-  const id = file.id
 
   return (
     <S.Main>
@@ -36,14 +35,14 @@ export function Content (props: ContentProps) {
         <S.FileNameInput
           value={file.name}
           ref={inputRef}
-          onChange={(event) => handleChangeTitle(event, id)}
+          onChange={handleChangeTitle(file.id)}
           autoFocus
         />
       </S.InputDiv>
       <S.Textarea
         value={file.content}
         placeholder='Digite aqui seu markdown'
-        onChange={(event) => handleChangeContent(event, id)}
+        onChange={handleChangeContent(file.id)}
       />
       <S.OutputArticle dangerouslySetInnerHTML={{ __html: marked(file.content) }} />
     </S.Main>

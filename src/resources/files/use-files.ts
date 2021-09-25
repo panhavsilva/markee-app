@@ -87,12 +87,11 @@ export function useFiles () {
       .concat(newFile))
   }
 
-  const handleDeleteFile = (event: MouseEvent, id: string) => {
-    event.preventDefault()
+  const handleDeleteFile = (id: string) => {
     setFile(files => files.filter(file => file.id !== id))
   }
 
-  const handleSelectFile = (event: MouseEvent, fileSelected: File) => {
+  const handleSelectFile = (fileSelected: File) => (event: MouseEvent) => {
     event.preventDefault()
     setFile(files => files
       .map(file => (file.id === fileSelected.id
@@ -100,13 +99,13 @@ export function useFiles () {
         : { ...file, active: false })))
   }
 
-  const handleChangeContent = (event: ChangeEvent<HTMLTextAreaElement>, id: string) => {
+  const handleChangeContent = (id: string) => (event: ChangeEvent<HTMLTextAreaElement>) => {
     setFile(files => files.map(file => file.id === id
       ? { ...file, content: event.target.value, status: 'editing' }
       : { ...file }))
   }
 
-  const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>, id: string) => {
+  const handleChangeTitle = (id: string) => (event: ChangeEvent<HTMLInputElement>) => {
     setFile(files => files.map(file => file.id === id
       ? { ...file, name: event.target.value, status: 'editing' }
       : { ...file }))
