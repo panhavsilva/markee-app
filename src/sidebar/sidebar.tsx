@@ -10,8 +10,8 @@ import * as S from './sidebar-styled'
 type SidebarProps = {
   files: File[]
   handleCreateFile: () => void
-  handleDeleteFile: (event: MouseEvent, id: string) => void
-  handleSelectFile: (event: MouseEvent, fileSelected: File) => void
+  handleDeleteFile: (id: string) => void
+  handleSelectFile: (fileSelected: File) => (event: MouseEvent) => void
 }
 export function Sidebar (props: SidebarProps) {
   const { files, handleSelectFile, handleCreateFile, handleDeleteFile } = props
@@ -21,7 +21,8 @@ export function Sidebar (props: SidebarProps) {
       <S.Logo><img src={logo} alt='Logo' /></S.Logo>
       <S.Title>Arquivos</S.Title>
       <S.ButtonAddFile onClick={handleCreateFile}>
-        <S.PlusIcon src={plus} alt='Plus icon' />{' '}Adicionar arquivo
+        <S.PlusIcon src={plus} alt='Plus icon' />
+        {' '}Adicionar arquivo
       </S.ButtonAddFile>
       <S.List>
         {files.map((file) => (
@@ -39,13 +40,13 @@ export function Sidebar (props: SidebarProps) {
               <S.FileHover key={file.id}>
                 <S.FileLink
                   href={`/file/${file.id}`}
-                  onClick={(event) => handleSelectFile(event, file)}
+                  onClick={handleSelectFile(file)}
                 >
                   <S.FileIcon src={fileWhiteIcon} alt='File icon' />
                   {file.name}
                 </S.FileLink>
                 <S.ButtonDelete
-                  onClick={(event) => handleDeleteFile(event, file.id)}
+                  onClick={() => handleDeleteFile(file.id)}
                 />
               </S.FileHover>
               )

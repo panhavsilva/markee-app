@@ -1,22 +1,15 @@
-import { v4 } from 'uuid'
-import localforage from 'localforage'
 import { useRef, useState, useEffect, MouseEvent, ChangeEvent } from 'react'
+import localforage from 'localforage'
+import { v4 } from 'uuid'
 import { File } from 'resources/files/types'
+import { useMount } from './use-mount'
 
 export function useFiles () {
   const inputRef = useRef<HTMLInputElement>(null)
   const [files, setFile] = useState<File[]>([])
   const [activeFile, setActiveFile] = useState<File | null>(null)
 
-  useEffect(() => {
-    async function storageInitial () {
-      const value = await localforage.getItem<File[]>('files')
-      if (value) {
-        setFile(value)
-      }
-    }
-    storageInitial()
-  }, [])
+  useMount(setFile)
 
   useEffect(() => {
     localforage.setItem('files', files)
@@ -94,12 +87,11 @@ export function useFiles () {
       .concat(newFile))
   }
 
-  const handleDeleteFile = (event: MouseEvent, id: string) => {
-    event.preventDefault()
+  const handleDeleteFile = (id: string) => {
     setFile(files => files.filter(file => file.id !== id))
   }
 
-  const handleSelectFile = (event: MouseEvent, fileSelected: File) => {
+  const handleSelectFile = (fileSelected: File) => (event: MouseEvent) => {
     event.preventDefault()
     setFile(files => files
       .map(file => (file.id === fileSelected.id
@@ -107,13 +99,13 @@ export function useFiles () {
         : { ...file, active: false })))
   }
 
-  const handleChangeContent = (event: ChangeEvent<HTMLTextAreaElement>, id: string) => {
+  const handleChangeContent = (id: string) => (event: ChangeEvent<HTMLTextAreaElement>) => {
     setFile(files => files.map(file => file.id === id
       ? { ...file, content: event.target.value, status: 'editing' }
       : { ...file }))
   }
 
-  const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>, id: string) => {
+  const handleChangeTitle = (id: string) => (event: ChangeEvent<HTMLInputElement>) => {
     setFile(files => files.map(file => file.id === id
       ? { ...file, name: event.target.value, status: 'editing' }
       : { ...file }))
