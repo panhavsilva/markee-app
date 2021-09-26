@@ -8,12 +8,11 @@ export const Main = styled.main`${({ theme }) => css`
   grid-template-rows: 89px 1fr;
 `}`
 
-export const Textarea = styled.textarea`${({ theme }) => css`
-  background: ${theme.colors.white};
+export const Textarea = styled.textarea`
+  background: ${({ theme }) => theme.colors.white};
   border: none;
   border-right: 2px solid rgba(30, 41, 59, 0.12);
   color: rgba(30, 41, 59, 0.86);
-  cursor: text;
   display: block;
   font-family: 'Inconsolata', monospace;
   font-size: 1.8rem;
@@ -25,10 +24,10 @@ export const Textarea = styled.textarea`${({ theme }) => css`
   resize: none;
   width: 100%;
 
-  :focus {
+  &:focus {
     outline: none;
   }
-`}`
+`
 
 export const InputDiv = styled.div`
   align-items: center;

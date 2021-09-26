@@ -7,7 +7,6 @@ export function App () {
   const {
     inputRef,
     files,
-    activeFile,
     handleCreateFile,
     handleDeleteFile,
     handleSelectFile,
@@ -25,7 +24,7 @@ export function App () {
       />
       <Content
         inputRef={inputRef}
-        file={activeFile}
+        files={files}
         handleChangeContent={handleChangeContent}
         handleChangeTitle={handleChangeTitle}
       />

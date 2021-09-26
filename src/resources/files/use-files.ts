@@ -2,14 +2,20 @@ import { useRef, useState, useEffect, MouseEvent, ChangeEvent } from 'react'
 import localforage from 'localforage'
 import { v4 } from 'uuid'
 import { File } from 'resources/files/types'
-import { useMount } from './use-mount'
 
 export function useFiles () {
   const inputRef = useRef<HTMLInputElement>(null)
   const [files, setFile] = useState<File[]>([])
-  const [activeFile, setActiveFile] = useState<File | null>(null)
 
-  useMount(setFile)
+  useEffect(() => {
+    async function storageInitial () {
+      const value = await localforage.getItem<File[]>('files')
+      if (value) {
+        setFile(value)
+      }
+    }
+    storageInitial()
+  }, [])
 
   useEffect(() => {
     localforage.setItem('files', files)
@@ -24,11 +30,6 @@ export function useFiles () {
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>
-
-    if (files.length > 0) {
-      const fileActive = files.filter(file => file.active === true)[0]
-      setActiveFile(fileActive)
-    }
 
     function updateStatus () {
       const file = files.find(file => file.active === true)
@@ -100,22 +101,31 @@ export function useFiles () {
   }
 
   const handleChangeContent = (id: string) => (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setFile(files => files.map(file => file.id === id
-      ? { ...file, content: event.target.value, status: 'editing' }
-      : { ...file }))
+    setFile(files => files.map(file => {
+      if (file.id === id) {
+        return { ...file, content: event.target.value, status: 'editing' }
+      }
+      return file
+    }))
   }
 
   const handleChangeTitle = (id: string) => (event: ChangeEvent<HTMLInputElement>) => {
-    setFile(files => files.map(file => file.id === id
-      ? { ...file, name: event.target.value, status: 'editing' }
-      : { ...file }))
+    setFile(files => files.map(file => {
+      if (file.id === id) {
+        return {
+          ...file,
+          name: event.target.value,
+          status: 'editing',
+        }
+      }
+      return file
+    }))
   }
 
   return {
     inputRef,
     files,
     setFile,
-    activeFile,
     handleCreateFile,
     handleDeleteFile,
     handleSelectFile,

@@ -18,13 +18,14 @@ import('highlight.js').then(hljs => {
 
 type ContentProps = {
   inputRef: RefObject<HTMLInputElement>
-  file: File | null,
+  files: File[],
   handleChangeContent: (id: string) => (event: ChangeEvent<HTMLTextAreaElement>) => void
   handleChangeTitle: (id: string) => (event: ChangeEvent<HTMLInputElement>) => void
 }
 export function Content (props: ContentProps) {
-  const { inputRef, handleChangeTitle, file, handleChangeContent } = props
-  if (file === null) {
+  const { inputRef, handleChangeTitle, files, handleChangeContent } = props
+  const file = files.filter(file => file.active === true)[0]
+  if (files.length === 0) {
     return null
   }
 
