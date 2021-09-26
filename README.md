@@ -8,18 +8,18 @@
 
 # Indice
 
-- 📂 [Sobre o Projeto](#📂-sobre-o-projeto)
-- 👨‍💻️ [Tecnologias utilizadas](#👨‍💻️-tecnologias-utilizadas)
-- 📦️ [Como utilizar o projeto](#📦️-como-utilizar-o-projeto)
+- 📂 [Sobre o Projeto](#sobre-o-projeto)
+- 👨‍💻️ [Tecnologias utilizadas](#tecnologias-utilizadas)
+- 📦️ [Como utilizar o projeto](#como-utilizar-o-projeto)
 <br/><br/>
 
-## 📂 Sobre o projeto
+## Sobre o projeto
 **Markee App** é um editor de Markdown com visualização automática de seu resultado em HTML, desenvolvido durante o [Bootcamp de ReactJS da B.Academy](https://b-academy.brainn.co/).
 
 <img src='./src/ui/markee-app.gif' alt='utilizando Markee App' />
 <br/><br/>
 
-## 👨‍💻️ Tecnologias utilizadas
+## Tecnologias utilizadas
 - ReactJS
 - TypeScript
 - Styled Components
@@ -34,7 +34,7 @@
 - [Visual Studio Code](https://code.visualstudio.com/)
 <br/><br/>
 
-## 📦️ Como utilizar o projeto
+## Como utilizar o projeto
 
 Para copiar o projeto, utilize os comandos:
 ```bash
