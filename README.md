@@ -1,46 +1,64 @@
-# Getting Started with Create React App
+# Markee App
+<div align='center'>
+  <img src='./src/sidebar/logo.svg' alt='Logo Markee App' />
+</div>
+<br/>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### [💻 Acesse aqui](https://markee-panhavsilva.netlify.app/)
+<br/>
 
-## Available Scripts
+# Indice
 
-In the project directory, you can run:
+- 📂 [Sobre o Projeto](#📂-sobre-o-projeto)
+- 👨‍💻️ [Tecnologias utilizadas](#👨‍💻️-tecnologias-utilizadas)
+- 📦️ [Como utilizar o projeto](#📦️-como-utilizar-o-projeto)
+<br/><br/>
 
-### `yarn start`
+## 📂 Sobre o projeto
+**Markee App** é um editor de Markdown com visualização automática de seu resultado em HTML, desenvolvido durante o [Bootcamp de ReactJS da B.Academy](https://b-academy.brainn.co/).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<img src='./src/ui/markee-app.gif' alt='utilizando Markee App' />
+<br/><br/>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 👨‍💻️ Tecnologias utilizadas
+- ReactJS
+- TypeScript
+- Styled Components
+- LocalForage
+- Marked
+- Highlight.js
+- Husky
+- ESLint
+- EditorConfig
 
-### `yarn test`
+### IDE
+- [Visual Studio Code](https://code.visualstudio.com/)
+<br/><br/>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📦️ Como utilizar o projeto
 
-### `yarn build`
+Para copiar o projeto, utilize os comandos:
+```bash
+  # Clonar o repositório
+  ❯ git clone  https://github.com/panhavsilva/markee-app
+  # Entrar no diretório
+  ❯ cd markee-app
+``` 
+## 🔥 Executando a aplicação no seu terminal
+```bash
+  #install the dependencies
+  yarn start
+  #or
+  npm 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  #start the server
+  npm run dev
+  # or
+  yarn dev
+```
+Abra em seu navegador [http://localhost:3000](http://localhost:3000).
+<br/><br/>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ✨ Mostre seu apoio
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Dê uma ⭐ se esse projeto te ajudou ou se você gostou!
