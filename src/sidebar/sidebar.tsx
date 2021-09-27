@@ -32,8 +32,8 @@ export function Sidebar (props: SidebarProps) {
                 <S.FileLinkActive href={`/file/${file.id}`}>
                   <S.FileIcon src={fileBlueIcon} alt='File icon' />
                   {file.name}
-                  <StatusIconEditing status={file.status} />
                 </S.FileLinkActive>
+                <StatusIconEditing status={file.status} />
               </S.Files>
               )
             : (

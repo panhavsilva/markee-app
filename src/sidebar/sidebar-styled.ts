@@ -31,7 +31,6 @@ export const ButtonAddFile = styled.button`${({ theme }) => css`
   border-radius: 4px;
   color: ${theme.colors.black};
   cursor: pointer;
-  display: flex;
   font-size: 1.35522rem;
   font-weight: 400;
   height: 34px;
@@ -65,7 +64,8 @@ export const Files = styled.li`${({ theme }) => css`
   background: ${theme.colors.lightBlack};
   border: none;
   border-radius: 6px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 35px;
   font-size: 1.6rem;
   height: 37px;
   margin-bottom: 6px;
@@ -98,6 +98,7 @@ export const ButtonDelete = styled.button`${({ theme }) => css`
   background-repeat: no-repeat;
   border: none;
   cursor: pointer;
+  justify-self: self-end;
   height: 8px;
   opacity: 0;
   width: 8px;
@@ -120,9 +121,11 @@ export const FileLink = styled.a`
   letter-spacing: -0.02em;
   line-height: 21px;
   margin-left: 12px;
-  overflow-wrap: anywhere;
   text-decoration: none;
   width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `
 export const FileLinkActive = styled.a`
   align-items: center;
@@ -136,7 +139,9 @@ export const FileLinkActive = styled.a`
   letter-spacing: -0.02em;
   line-height: 21px;
   margin-left: 12px;
-  overflow-wrap: anywhere;
   text-decoration: none;
   width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `

@@ -13,13 +13,13 @@ export function StatusIconEditing ({ status }: StatusIconProps) {
 }
 
 const EditingIcon = styled(Editing)`
-  justify-self: center;
+  justify-self: self-end;
   width: 8px;
 `
 
 const SavedIcon = styled(Saved)`
   height: 8.25px;
-  justify-self: center;
+  justify-self: self-end;
   width: 12px;
 `
 
@@ -34,7 +34,7 @@ const rotation = keyframes`
 
 const SavingIcon = styled(Saving)`
   height: 11px;
-  justify-self: center;
+  justify-self: self-end;
   width: 11px;
 
   animation: ${rotation} 1s infinite linear;
