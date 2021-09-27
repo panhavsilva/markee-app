@@ -120,6 +120,7 @@ export const FileLink = styled.a`
   letter-spacing: -0.02em;
   line-height: 21px;
   margin-left: 12px;
+  overflow-wrap: anywhere;
   text-decoration: none;
   width: 100%;
 `
@@ -135,6 +136,7 @@ export const FileLinkActive = styled.a`
   letter-spacing: -0.02em;
   line-height: 21px;
   margin-left: 12px;
+  overflow-wrap: anywhere;
   text-decoration: none;
   width: 100%;
 `
